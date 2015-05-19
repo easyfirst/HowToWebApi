@@ -29,7 +29,6 @@ namespace MyConsoleClient
             var client = new HttpClient();
             var dto = new WorksData
             {
-                WorksId=Guid.NewGuid(),
                 Album = new WorksAlbum { Id=Guid.NewGuid(),Name="My Album"},
                 Topic = new WorksTopic { Id=Guid.NewGuid(),Name="My Topic"},
                 WorksMediaList = new List<WorksMedia>

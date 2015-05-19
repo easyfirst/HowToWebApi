@@ -1,0 +1,94 @@
+﻿@model MyModels.WorksData
+
+@{
+    ViewBag.Title = "PostWork";
+}
+
+<h2>PostWork</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>WorksData</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.TopicDebaters, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TopicDebaters, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TopicDebaters, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.lastViewedId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.lastViewedId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.lastViewedId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.labelClassifyList, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.labelClassifyList, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.labelClassifyList, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.userFormList, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.userFormList, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.userFormList, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create via Server" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<button value="Create via Ajax" class="btn btn-default" onclick="callApi();">Create via Ajax</button>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        function callApi() {
+            var dto = {
+                WorksId: "B009CDDA-612A-4279-8A3F-DCF1E88AB7EE",
+                Album: { Id: "FA06B7F8-BA4E-4A4A-861A-7036FAC84C15", Name: "My Album" },
+                Topic: { Id: "0099A68D-40C8-4FD5-9FF7-D7D56B03CBED", Name: "My Topic" },
+                WorksMediaList: [
+                    { Id: "B13E081D-E3C9-465D-886A-0C2C29E5B241", Name: "My Topic" }
+                ]
+            };
+
+            jQuery.support.cors = true;
+            $.ajax({
+                url: 'http://localhost:53340/api/works',
+                type: 'POST',
+                data: JSON.stringify(dto),
+                //dataType:'json',
+                contentType: "application/json;charset=utf-8",
+                success: function () {
+                    alert("OK");
+                },
+                error: function (data) {
+                    alert("error");
+                    console.log(data);
+                }
+            });
+        }
+    </script>
+}

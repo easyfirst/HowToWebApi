@@ -5,6 +5,11 @@ namespace MyModels
 {
     public class WorksData
     {
+        public WorksData()
+        {
+            WorksId = Guid.NewGuid();
+        }
+
         // 作品专辑类
         public WorksAlbum Album { get; set; }
 
